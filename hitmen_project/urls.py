@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from main_app.views import redirect_to_hits
 
 urlpatterns = [
+    path('', redirect_to_hits),
     path('admin/', admin.site.urls),
     path('', include('account.urls')),
+    path('', include('main_app.urls'))
 ]
