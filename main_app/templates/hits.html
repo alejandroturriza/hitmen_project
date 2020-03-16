@@ -11,13 +11,13 @@
         <div class="row">
             {% for hit in hits %}
                 <div class="col-xl-4 col-md-6">
-                    <div class="card bg-{% if hit.status == 1 %}primary{% elif hit.status == 2 %}danger {% elif hit.status == 3 %}sucsess {% else %}secondary{% endif %} text-white mb-4">
+                    <div class="card bg-{% if hit.status == 1 %}primary{% elif hit.status == 2 %}danger {% elif hit.status == 3 %}success {% else %}secondary{% endif %} text-white mb-4">
                         <div class="card-header">{{ hit.title }}</div>
                         <div class="card-body">
                             Hitman:
                             {{ hit.assignee|default:'Not assignee' }} <br>
                             Status:
-                            {{ hit.status|default:'Unassigned' }} <br>
+                            {{ hit.get_status_display|default:'Unassigned' }} <br>
                             Description:
                             {{ hit.description|truncatechars:"55" }}
                         </div>

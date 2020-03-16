@@ -6,7 +6,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hitmen',
-        'USER': 'admin',
+        'USER': 'root',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
     }

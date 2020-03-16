@@ -9,7 +9,7 @@ class HitForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'assignee': forms.Select(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'required': 'required'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'assigned_by': forms.Select(attrs={'class': 'form-control'}),
+            'assigned_by': forms.Select(attrs={'class': 'form-control', 'disabled': True}),
         }

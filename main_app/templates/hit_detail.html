@@ -49,6 +49,14 @@
                        class="col-sm-2 col-form-label">{{ form.status.label }}</label>
                 <div class="col-sm-10">
                     {{ form.status }}
+                    {% if form.status.field.disabled %}
+                        <select name="{{ form.status.name }}" id="{{ form.status.id_for_label }}" hidden>
+                            {% for value,text in form.fields.status.choices %}
+                                <option value="{{ value }}"{% if form.initial.status == value %}
+                                        selected{% endif %}>{{ text }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
                 </div>
             </div>
             <div class="form-group row">
@@ -66,13 +74,13 @@
                     {% endif %}
                 </div>
             </div>
-            {#            {% if perms.app.change_hit %}#}
-            <div class="form-group row" style="text-align: right">
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+            {% if not only_view %}
+                <div class="form-group row" style="text-align: right">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
-            </div>
-            {#            {% endif %}#}
+            {% endif %}
         </form>
     </div>
 {% endblock %}
