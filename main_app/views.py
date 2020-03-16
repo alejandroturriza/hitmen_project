@@ -29,7 +29,7 @@ class HitDetail(views.View):
     def get(self, request, id):
         hit = Hit.objects.get(id=id)
         form = HitForm(instance=hit)
-        is_close_case = hit.status in (2, 3)
+        is_close_case = hit.status in (2, 3) or (hit.assignee and not hit.assignee.is_active)
         if not request.user.has_perm('main_app.change_hit') or is_close_case:
             form.fields['title'].widget.attrs['readonly'] = 'readonly'
             form.fields['assignee'].disabled = True
