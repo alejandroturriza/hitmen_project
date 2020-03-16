@@ -36,6 +36,8 @@ class HitDetail(views.View):
             form.fields['description'].widget.attrs['readonly'] = 'readonly'
             if is_close_case:
                 form.fields['status'].disabled = True
+        if not hit.assignee:
+            form.fields['status'].disabled = True
         form.fields['assigned_by'].disabled = True
         users = get_users_fill_select_assignee(request.user)
         form.fields['assignee'].choices = users
@@ -71,6 +73,7 @@ def add_hit(request):
             form = HitForm()
     else:
         form = HitForm()
+        form.fields['status'].disabled = True
     users = get_users_fill_select_assignee(request.user)
     form.fields['assignee'].choices = users
     return render(request, 'hit_detail.html', context={'form': form})
