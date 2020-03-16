@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block content_app %}
-    {#    {{ perms.account.view_hit }}#}
     <div class="container">
+        <div style="text-align: center">
+            <h1>Hits</h1>
+        </div>
         <div class="row">
             {% for hit in hits %}
                 <div class="col-xl-4 col-md-6">
@@ -15,7 +17,7 @@
                             Hitman:
                             {{ hit.assignee|default:'Not assignee' }} <br>
                             Status:
-                            {{ hit.status }} <br>
+                            {{ hit.status|default:'Unassigned' }} <br>
                             Description:
                             {{ hit.description|truncatechars:"55" }}
                         </div>

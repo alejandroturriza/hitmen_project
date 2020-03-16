@@ -1,6 +1,13 @@
+{% load tags_app %}
+{% url 'hits_url' as home %}
 {% block content %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{% url 'hits_url' %}">Hitmen</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% active request home %}">
+                <a class="nav-link" href="{{ home }}">Home</a>
+            </li>
+        </ul>
         <!-- Navbar-->
         <ul class="ml-auto navbar-nav ml-auto">
             <li class="nav-item dropdown">
