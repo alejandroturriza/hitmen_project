@@ -12,7 +12,7 @@ HIT_STATUS_CHOICES = (
 class Hit(models.Model):
     assignee = models.ForeignKey(User, related_name='hit_assignee', on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True)
-    title = models.CharField(max_length=150, null=False)
+    title = models.CharField(max_length=150, null=False, unique=True)
     status = models.IntegerField(choices=HIT_STATUS_CHOICES, null=True, blank=True)
     assigned_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 

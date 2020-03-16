@@ -5,6 +5,7 @@ from account.models import Hitman
 from django.db.models import Q
 from .forms import HitForm
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 def redirect_to_hits(request):
@@ -36,6 +37,8 @@ class HitDetail(views.View):
             if is_close_case:
                 form.fields['status'].disabled = True
         form.fields['assigned_by'].disabled = True
+        users = get_users_fill_select_assignee(request.user)
+        form.fields['assignee'].choices = users
         return render(request, 'hit_detail.html', context={'form': form, 'only_view': is_close_case})
 
     def post(self, request, id):
@@ -68,4 +71,18 @@ def add_hit(request):
             form = HitForm()
     else:
         form = HitForm()
+    users = get_users_fill_select_assignee(request.user)
+    form.fields['assignee'].choices = users
     return render(request, 'hit_detail.html', context={'form': form})
+
+
+def get_users_fill_select_assignee(user_manager):
+    if user_manager.is_superuser:
+        users = User.objects.all().exclude(id=user_manager.id)
+    elif user_manager.is_staff:
+        users = User.objects.filter(
+            id__in=Hitman.objects.select_related('manager').filter(manager=user_manager.id).values('user'))
+    else:
+        users = User.objects.filter(id=user_manager.id)
+
+    return users
