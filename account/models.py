@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
-HITMAN_STATUS_CHOICES = (
-    (1, 'Active'),
-    (2, 'Inactive')
-)
+from django.shortcuts import reverse
 
 
 class Hitman(models.Model):
@@ -15,3 +10,6 @@ class Hitman(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('hitmen_detail_url', kwargs={'id': self.id})

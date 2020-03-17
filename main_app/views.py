@@ -3,7 +3,7 @@ from django import views
 from .models import Hit
 from account.models import Hitman
 from django.db.models import Q
-from .forms import HitForm
+from .forms import HitForm, HitmenForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -55,7 +55,7 @@ class HitDetail(views.View):
                 save_hit.save()
             messages.success(request, 'Hit update successfuly')
         else:
-            messages.error(request, 'hit not update')
+            messages.error(request, 'Hit not update', extra_tags='danger')
         return redirect('hit_detail_url', id=id)
 
 
@@ -90,3 +90,72 @@ def get_users_fill_select_assignee(user_manager):
         users = User.objects.filter(id=user_manager.id)
 
     return users
+
+
+
+def get_related_users(manager):
+    hitmen = []
+    if manager.is_staff and not manager.is_superuser:
+        hitmen = Hitman.objects.select_related('manager').filter(manager=manager)
+    elif manager.is_superuser:
+        hitmen = Hitman.objects.select_related('manager').all()
+    return hitmen
+
+
+def hitmen_list(request):
+    hitmen = get_related_users(request.user)
+    return render(request, 'hitmen.html', context={'hitmen': hitmen})
+
+
+class HitmenDetail(views.View):
+    def get(self, request, id):
+        hitman = Hitman.objects.get(id=id)
+        form = HitmenForm(initial={
+            'first_name': hitman.user.first_name,
+            'last_name': hitman.user.last_name,
+            'email': hitman.user.username,
+            'description': hitman.description,
+            'status': 1 if hitman.user.is_active else 0
+        })
+        if not hitman.user.is_active:
+            form.fields['first_name'].widget.attrs['readonly'] = 'readonly'
+            form.fields['last_name'].widget.attrs['readonly'] = 'readonly'
+            form.fields['email'].widget.attrs['readonly'] = 'readonly'
+            form.fields['description'].widget.attrs['readonly'] = 'readonly'
+            form.fields['status'].disabled = True
+            form.fields['manager'].disabled = True
+        # get related users
+        if request.user.is_staff and not request.user.is_superuser:
+            managers = [request.user]
+        else:
+            managers = User.objects.filter(is_staff=True).exclude(is_superuser=True)
+        form.fields['manager'].choices = managers
+        return render(request, 'hitmen_detail.html', context={'form': form})
+
+    def post(self, request, id):
+        hitman = get_object_or_404(Hitman, pk=id)
+        form = HitmenForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            description = form.cleaned_data['description']
+            status = form.cleaned_data['status']
+            manager = form.cleaned_data['manager']
+            # hitman = Hitman.objects.get(pk=id)
+            if not User.objects.filter(username__iexact=email).exclude(id=hitman.user.id):
+                hitman.user.first_name = first_name
+                hitman.user.last_name = last_name
+                hitman.user.username = email
+                hitman.description = description
+                hitman.user.is_active = True if status else False
+                hitman.manager.id = manager
+                hitman.user.save()
+                hitman.save()
+                messages.success(request, 'Hitmen update successfuly')
+            else:
+                print(form.errors)
+                messages.error(request, 'Email already exists', extra_tags='danger')
+        else:
+            messages.error(request, 'Hitmen not update', extra_tags='danger')
+        return redirect('hitmen_detail_url', id=id)

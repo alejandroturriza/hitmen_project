@@ -1,0 +1,33 @@
+{% extends 'base_app.html' %}
+{% block title %}
+    Hitmen {{ block.super }}
+{% endblock %}
+{% block content_app %}
+    <div class="container">
+        <div style="text-align: center">
+            <h1>Hitmen</h1>
+        </div>
+        <div class="row">
+            {% for hitman in hitmen %}
+                <div class="col-md-4">
+                    <div class="card card-light mb-4">
+                        <div class="card-header"><i class="fas fa-user fa-lg"></i> {{ hitman.user.username }}</div>
+                        <div class="card-body">
+                            <strong>Description:</strong>
+                            <p class="card-text">{{ hitman.description }}</p>
+                            <strong>Status:</strong>
+                            <p class="card-text">{% if hitman.user.is_active %}Active{% else %}Inactive{% endif %}</p>
+                            <strong>Manager:</strong>
+                            <p class="card-text">{{ hitman.manager }}</p>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-black stretched-link" href="{{ hitman.get_absolute_url }}">View
+                                more</a>
+                            <div class="small text-black"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

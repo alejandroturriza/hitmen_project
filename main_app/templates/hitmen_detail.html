@@ -1,0 +1,77 @@
+{% extends 'base_app.html' %}
+
+{% block title %}
+    hit detail {{ block.super }}
+{% endblock %}
+
+
+{% block content_app %}
+    <div class="container">
+        <div style="text-align: center">
+            <h1>Hitman Detail</h1>
+        </div>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+            <div class="form-group row">
+                <label for="{{ form.first_name.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.first_name.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.first_name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.last_name.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.last_name.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.title.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.email.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.description.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.description.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.status.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.status.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.status }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="{{ form.manager.id_for_label }}"
+                       class="col-sm-2 col-form-label">{{ form.manager.label }}</label>
+                <div class="col-sm-10">
+                    <select name="{{ form.manager.name }}" id="{{ form.manager.id_for_label }}"
+                            class="form-control"
+                            {% if form.manager.field.disabled %} disabled {% endif %}>
+                        {% for value in form.fields.manager.choices %}
+                            <option value="{{ value.id }}"{% if form.initial.manager.id == value.id %}
+                                    selected {% endif %}
+                                    {% if not value.is_active %}disabled{% endif %}>{{ value.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% if not form.fields.status.disabled %}
+                <div class="form-group row" style="text-align: right">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
