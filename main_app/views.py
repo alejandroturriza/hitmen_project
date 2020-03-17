@@ -19,7 +19,7 @@ class Hits(views.View):
             hits = Hit.objects.filter(assignee=request.user)
         elif request.user.is_staff and not request.user.is_superuser:
             get_hitmans = Hitman.objects.filter(manager=request.user).values_list('user')
-            hits = Hit.objects.filter(Q(assignee__in=get_hitmans) | Q(assignee=None))
+            hits = Hit.objects.filter(Q(assignee__in=get_hitmans) | Q(assignee=None) | Q(assignee=request.user))
         elif request.user.is_superuser:
             hits = Hit.objects.all()
         return render(request, 'hits.html', context={'hits': hits})
@@ -29,7 +29,7 @@ class HitDetail(views.View):
     def get(self, request, id):
         hit = Hit.objects.get(id=id)
         form = HitForm(instance=hit)
-        is_close_case = hit.status in (2, 3) or (hit.assignee and not hit.assignee.is_active)
+        is_close_case = True if hit.status in (2, 3) or (hit.assignee and not hit.assignee.is_active) else False
         if not request.user.has_perm('main_app.change_hit') or is_close_case:
             form.fields['title'].widget.attrs['readonly'] = 'readonly'
             form.fields['assignee'].disabled = True
@@ -49,7 +49,7 @@ class HitDetail(views.View):
         if form.is_valid():
             assignee = form.cleaned_data['assignee']
             save_hit = form.save()
-            if assignee and save_hit.status is None and save_hit.assigned_by is None:
+            if assignee and save_hit.status is None:
                 save_hit.assigned_by = request.user
                 save_hit.status = 1
                 save_hit.save()
@@ -83,8 +83,9 @@ def get_users_fill_select_assignee(user_manager):
     if user_manager.is_superuser:
         users = User.objects.all().exclude(id=user_manager.id)
     elif user_manager.is_staff:
-        users = User.objects.filter(
-            id__in=Hitman.objects.select_related('manager').filter(manager=user_manager.id).values('user'))
+        users = User.objects.filter(Q(
+            id__in=Hitman.objects.select_related('manager').filter(manager=user_manager.id).values('user')) | Q(
+            id=user_manager.id))
     else:
         users = User.objects.filter(id=user_manager.id)
 
