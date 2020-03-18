@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import Hits, HitDetail, add_hit, hitmen_list, HitmenDetail
 from django.contrib.auth.decorators import login_required
-from django.conf.urls import handler404
 
 urlpatterns = [
     path('hits/', login_required(Hits.as_view()), name='hits_url'),

@@ -115,7 +115,8 @@ class HitmenDetail(views.View):
             'last_name': hitman.user.last_name,
             'email': hitman.user.username,
             'description': hitman.description,
-            'status': 1 if hitman.user.is_active else 0
+            'status': 1 if hitman.user.is_active else 0,
+            'manager': hitman.manager
         })
         if not hitman.user.is_active:
             form.fields['first_name'].widget.attrs['readonly'] = 'readonly'
@@ -142,14 +143,13 @@ class HitmenDetail(views.View):
             description = form.cleaned_data['description']
             status = form.cleaned_data['status']
             manager = form.cleaned_data['manager']
-            # hitman = Hitman.objects.get(pk=id)
             if not User.objects.filter(username__iexact=email).exclude(id=hitman.user.id):
                 hitman.user.first_name = first_name
                 hitman.user.last_name = last_name
                 hitman.user.username = email
                 hitman.description = description
                 hitman.user.is_active = True if status else False
-                hitman.manager.id = manager
+                hitman.manager_id = manager
                 hitman.user.save()
                 hitman.save()
                 messages.success(request, 'Hitmen update successfuly')
@@ -159,3 +159,12 @@ class HitmenDetail(views.View):
         else:
             messages.error(request, 'Hitmen not update', extra_tags='danger')
         return redirect('hitmen_detail_url', id=id)
+
+
+# error view
+def handler500(request):
+    return render(request, 'errors/500.html', status=500)
+
+
+def handler404(request, exception):
+    return render(request, 'errors/404.html', status=404)

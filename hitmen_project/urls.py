@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from main_app.views import redirect_to_hits
+import main_app
 
 urlpatterns = [
     path('', redirect_to_hits),
@@ -23,3 +24,7 @@ urlpatterns = [
     path('', include('account.urls')),
     path('', include('main_app.urls'))
 ]
+
+# custom errors page
+handler500 = main_app.views.handler500
+handler404 = main_app.views.handler404

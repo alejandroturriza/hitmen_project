@@ -56,6 +56,7 @@
                     <select name="{{ form.manager.name }}" id="{{ form.manager.id_for_label }}"
                             class="form-control"
                             {% if form.manager.field.disabled %} disabled {% endif %}>
+                        <option value="">---------</option>
                         {% for value in form.fields.manager.choices %}
                             <option value="{{ value.id }}"{% if form.initial.manager.id == value.id %}
                                     selected {% endif %}
