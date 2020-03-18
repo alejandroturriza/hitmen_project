@@ -1,0 +1,260 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$51lRvFXbrGP1$rMPZGUJU4QcpzBXAp7ApFb6a5ws5XVpYb/KRxRY0eBU=",
+      "last_login": "2020-03-18T07:26:02Z",
+      "is_superuser": true,
+      "username": "admin@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:11:33Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$Hf7hYFJVtvl2$5K3w3vYhBTON4RVO2PduvuF/kYsjqgJpXXeZHPKtlEM=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "manager1@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:41:11.267Z",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$qt86xNW1uBGy$RXq2x2n73gL2RIocpR8XnB4o2bTBlpZ0xIr+oUN/is4=",
+      "last_login": "2020-03-18T07:43:35.676Z",
+      "is_superuser": false,
+      "username": "manager2@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:42:22.072Z",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$bTpKGq3Lbu4u$C68oFUSf9wQgvhLN7YAjwwujN8S6AkibCFmj/9iEudo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "manager3@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:42:59.041Z",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$64DbzXgoCfxV$BJcz5BSgZrhMlJvOVG/a3Ucw8nMjfm5w8hTjSOuu1O0=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman1@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:45:05.409Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$Vqax3iripdPD$pjN7hXa9+kangMLJ7DdmXu7ua470cxPPk7CFyYZ9XTI=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman2@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:46:21.063Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$P20AlNsz2fgT$tqH1gxArsXDAcmjf5Sz1jz+JOvG4SCuckPXs8jdU6RI=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman3@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:46:54.565Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$tpEv8TtwZ4g5$HEaPoZOOEaSHUcUql+4aGekQxtjhLoj7piZHLYLyfQw=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman4@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:47:11.000Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$A9TpORdtS150$F2HggHCYVO2cvUwPdZ+DM9omMvvP5vaAuBWeRCm9e+Y=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman5@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:47:35.215Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$1WW7Lc99yROH$q0Als1Twr8t9+M23p/ioZH5Ht9KPNLNkKdzDxzyxKMQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman6@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:47:56.144Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$MhHEZFeRpXAF$4WHDPj3cxG7PZlcydbZXL7ZHOZOlQxrTNny7cIrEBTc=",
+      "last_login": "2020-03-18T07:49:41.332Z",
+      "is_superuser": false,
+      "username": "hitman7@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:48:28.442Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$Ckp0sTPBL9UT$sPtjqMwbNMQJ/CzOefgbPrtpiGlOzL9PMsRSuvVxjj0=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman8@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:48:56.209Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$hFLaHZj0WiGy$VJYOtiFI8QlOXGh0yY9byToaNIZJyzaaY1si1yECIxs=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "hitman9@hitmen.com",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-03-18T07:49:19.708Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  }
+]

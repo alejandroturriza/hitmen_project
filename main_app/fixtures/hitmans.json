@@ -1,0 +1,83 @@
+[
+  {
+    "model": "account.hitman",
+    "pk": 1,
+    "fields": {
+      "user": 5,
+      "description": "description: hitman1@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 2,
+    "fields": {
+      "user": 6,
+      "description": "description: hitman2@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 3,
+    "fields": {
+      "user": 7,
+      "description": "description: hitman3@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 4,
+    "fields": {
+      "user": 8,
+      "description": "description: hitman4@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 5,
+    "fields": {
+      "user": 9,
+      "description": "description: hitman5@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 6,
+    "fields": {
+      "user": 10,
+      "description": "description: hitman6@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 7,
+    "fields": {
+      "user": 11,
+      "description": "description: hitman7@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 8,
+    "fields": {
+      "user": 12,
+      "description": "description: hitman8@hitmen.com",
+      "manager": null
+    }
+  },
+  {
+    "model": "account.hitman",
+    "pk": 9,
+    "fields": {
+      "user": 13,
+      "description": "description: hitman9@hitmen.com",
+      "manager": null
+    }
+  }
+]
