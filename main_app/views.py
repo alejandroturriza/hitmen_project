@@ -92,7 +92,6 @@ def get_users_fill_select_assignee(user_manager):
     return users
 
 
-
 def get_related_users(manager):
     hitmen = []
     if manager.is_staff and not manager.is_superuser:
@@ -159,6 +158,34 @@ class HitmenDetail(views.View):
         else:
             messages.error(request, 'Hitmen not update', extra_tags='danger')
         return redirect('hitmen_detail_url', id=id)
+
+
+class HitsBulk(views.View):
+    def get(self, request):
+        hits, managers = [], []
+        if request.user.is_staff and not request.user.is_superuser:
+            get_hitmans = Hitman.objects.filter(manager=request.user).values_list('user')
+            hits = Hit.objects.filter(Q(assignee__in=get_hitmans) | Q(assignee=None) | Q(assignee=request.user),
+                                      Q(status__isnull=True) | Q(status=1))
+            managers.append(request.user)
+        elif request.user.is_superuser:
+            hits = Hit.objects.filter(Q(status__isnull=True) | Q(status=1))
+            managers = User.objects.filter(is_active=True).exclude(is_superuser=True)
+        return render(request, 'hits_bulk.html', context={'hits': hits, 'managers': managers})
+
+    def post(self, request):
+        try:
+            data_form = dict(filter(lambda x: x[0] != 'csrfmiddlewaretoken', request.POST.items()))
+            for x in data_form:
+                hit = Hit.objects.get(id=x)
+                hit.assignee_id = int(data_form[x]) if isinstance(data_form[x], str) and data_form[x] != '' else None
+                hit.status = 1 if hit.assignee_id is not None else None
+                hit.assigned_by = request.user
+                hit.save()
+            messages.success(request, 'Updated Hits!')
+        except:
+            messages.error(request, 'Not update Hit', extra_tags='danger')
+        return redirect('hits_bulk_url')
 
 
 # error view

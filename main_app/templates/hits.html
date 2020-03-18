@@ -14,7 +14,7 @@
                     <div class="card bg-{% if hit.status == 1 %}primary{% elif hit.status == 2 %}danger {% elif hit.status == 3 %}success {% else %}secondary{% endif %} text-white mb-4">
                         <div class="card-header">{{ hit.title }}</div>
                         <div class="card-body">
-                            Hitman:
+                            Assignee:
                             {{ hit.assignee|default:'Not assignee' }} <br>
                             Status:
                             {{ hit.get_status_display|default:'Unassigned' }} <br>

@@ -2,6 +2,7 @@
 {% url 'hits_url' as home %}
 {% url 'hit_add_url' as add_hit %}
 {% url 'hitmen_url' as hitmen %}
+{% url 'hits_bulk_url' as hits_bulk %}
 {% block content %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{% url 'hits_url' %}">Hitmen</a>
@@ -9,14 +10,19 @@
             <li class="nav-item {% active request home %}">
                 <a class="nav-link" href="{{ home }}">Home</a>
             </li>
-            {% if perms.main_app.add_hit %}
+            {% if perms.main_app.add_hit and user.is_staff %}
                 <li class="nav-item {% active request add_hit %}">
                     <a class="nav-link" href="{{ add_hit }}">Add Hit</a>
                 </li>
             {% endif %}
-            {% if perms.account.view_hitman %}
+            {% if perms.account.view_hitman and user.is_staff %}
                 <li class="nav-item {% active request hitmen %}">
                     <a class="nav-link" href="{{ hitmen }}">Hitmen</a>
+                </li>
+            {% endif %}
+            {% if perms.main_app.change_hit and user.is_staff %}
+                <li class="nav-item {% active request hits_bulk %}">
+                    <a class="nav-link" href="{{ hits_bulk }}">Hits Bulk</a>
                 </li>
             {% endif %}
         </ul>
