@@ -31,7 +31,7 @@
                         <option value="" {% if user.id == form.initial.assignee %}disabled{% endif %}>---------</option>
                         {% for value in form.fields.assignee.choices %}
                             <option value="{{ value.id }}"{% if form.initial.assignee == value.id %}
-                                    selected {% endif %}
+                                    selected {% endif %} {% if value.id == user.id %}disabled{% endif %}
                                     {% if not value.is_active %}disabled{% endif %}>{{ value.username }}</option>
                         {% endfor %}
                     </select>

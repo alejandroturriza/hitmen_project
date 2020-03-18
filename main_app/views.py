@@ -95,7 +95,6 @@ def get_users_fill_select_assignee(user_manager):
             id=user_manager.id))
     else:
         users = User.objects.filter(id=user_manager.id)
-
     return users
 
 
