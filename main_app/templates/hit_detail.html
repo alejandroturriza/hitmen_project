@@ -1,14 +1,14 @@
 {% extends 'base_app.html' %}
 
 {% block title %}
-    hit detail {{ block.super }}
+    {{ section }} {{ block.super }}
 {% endblock %}
 
 
 {% block content_app %}
     <div class="container">
         <div style="text-align: center">
-            <h1>Hit Detail</h1>
+            <h1>{{ section }}</h1>
         </div>
         <hr>
         <form method="post">

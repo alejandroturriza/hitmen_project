@@ -47,7 +47,7 @@ class HitDetail(PermissionRequiredMixin, views.View):
         form.fields['assigned_by'].disabled = True
         users = get_users_fill_select_assignee(request.user)
         form.fields['assignee'].choices = users
-        return render(request, 'hit_detail.html', context={'form': form, 'only_view': is_close_case})
+        return render(request, 'hit_detail.html', context={'form': form, 'only_view': is_close_case, 'section': 'Detail Hit'})
 
     def post(self, request, id):
         hit = get_object_or_404(Hit, pk=id)
@@ -83,7 +83,7 @@ def add_hit(request):
         form.fields['status'].disabled = True
     users = get_users_fill_select_assignee(request.user)
     form.fields['assignee'].choices = users
-    return render(request, 'hit_detail.html', context={'form': form})
+    return render(request, 'hit_detail.html', context={'form': form, 'section': 'Add Hit'})
 
 
 def get_users_fill_select_assignee(user_manager):
