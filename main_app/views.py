@@ -88,9 +88,9 @@ def add_hit(request):
 
 def get_users_fill_select_assignee(user_manager):
     if user_manager.is_superuser:
-        users = User.objects.all().exclude(id=user_manager.id)
+        users = User.objects.filter(is_active=True).exclude(id=user_manager.id)
     elif user_manager.is_staff:
-        users = User.objects.filter(Q(
+        users = User.objects.filter(Q(is_active=True),Q(
             id__in=Hitman.objects.select_related('manager').filter(manager=user_manager.id).values('user')) | Q(
             id=user_manager.id))
     else:
@@ -160,6 +160,8 @@ class HitmenDetail(PermissionRequiredMixin, views.View):
                 hitman.manager_id = manager
                 hitman.user.save()
                 hitman.save()
+                if not hitman.user.is_active:
+                    cancel_hits = change_status_hits(hitman.user)
                 messages.success(request, 'Hitmen update successfuly')
             else:
                 messages.error(request, 'Email already exists', extra_tags='danger')
@@ -168,13 +170,26 @@ class HitmenDetail(PermissionRequiredMixin, views.View):
         return redirect('hitmen_detail_url', id=id)
 
 
+def change_status_hits(user):
+    try:
+        get_hits = Hit.objects.filter(assignee=user.id)
+        for hit in get_hits:
+            if hit.status == 1:
+                hit.assignee = None
+                hit.assigned_by = None
+                hit.save()
+        return True
+    except:
+        return False
+
+
 class HitsBulk(PermissionRequiredMixin, views.View):
     permission_required = 'main_app.view_bulk_hit'
 
     def get(self, request):
         hits, managers = [], []
         if request.user.is_staff and not request.user.is_superuser:
-            get_hitmans = Hitman.objects.filter(manager=request.user).values_list('user')
+            get_hitmans = Hitman.objects.filter(manager=request.user, user__is_active=True).values_list('user')
             hits = Hit.objects.filter(Q(assignee__in=get_hitmans) | Q(assignee=None) | Q(assignee=request.user),
                                       Q(status__isnull=True) | Q(status=1))
             managers = get_users_fill_select_assignee(request.user)
