@@ -70,7 +70,7 @@ def add_hit(request):
                 new_hit.status = 1
                 new_hit.save()
             messages.success(request, 'Hit created successfuly')
-            form = HitForm()
+            return redirect('hit_detail_url', id=new_hit.id)
     else:
         form = HitForm()
         form.fields['status'].disabled = True
@@ -166,7 +166,7 @@ class HitsBulk(views.View):
             get_hitmans = Hitman.objects.filter(manager=request.user).values_list('user')
             hits = Hit.objects.filter(Q(assignee__in=get_hitmans) | Q(assignee=None) | Q(assignee=request.user),
                                       Q(status__isnull=True) | Q(status=1))
-            managers.append(request.user)
+            managers = get_users_fill_select_assignee(request.user)
         elif request.user.is_superuser:
             hits = Hit.objects.filter(Q(status__isnull=True) | Q(status=1))
             managers = User.objects.filter(is_active=True).exclude(is_superuser=True)
