@@ -46,11 +46,13 @@ class Register(views.View):
                 hitman.user = new_user
                 hitman.description = request.POST['description_hitman']
                 hitman.save()
+                new_user.groups.add(1)
                 messages.success(request, 'Hitman created successfuly')
             else:
+                new_user.groups.add(2)
                 new_user.is_staff = True
-                new_user.save()
                 messages.success(request, 'Manager created successfuly')
+            new_user.save()
         return render(request, 'register.html', context={'form': form})
 
 
