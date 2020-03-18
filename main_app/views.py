@@ -27,7 +27,7 @@ class Hits(views.View):
 
 class HitDetail(views.View):
     def get(self, request, id):
-        hit = Hit.objects.get(id=id)
+        hit = get_object_or_404(Hit, id=id)
         form = HitForm(instance=hit)
         is_close_case = True if hit.status in (2, 3) or (hit.assignee and not hit.assignee.is_active) else False
         if not request.user.has_perm('main_app.change_hit') or is_close_case:
@@ -153,7 +153,6 @@ class HitmenDetail(views.View):
                 hitman.save()
                 messages.success(request, 'Hitmen update successfuly')
             else:
-                print(form.errors)
                 messages.error(request, 'Email already exists', extra_tags='danger')
         else:
             messages.error(request, 'Hitmen not update', extra_tags='danger')
