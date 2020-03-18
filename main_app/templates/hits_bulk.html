@@ -26,7 +26,7 @@
                         <th scope="row">{{ hit.title }}</th>
                         <th scope="row">
                             <select class="form-control" name="{{ hit.id }}">
-                                <option value="" {% if hit.assignee %}disabled{% endif %}>---------</option>
+                                <option value="">---------</option>
                                 {% for manager in managers %}
                                     <option value="{{ manager.id }}"
                                             {% if manager.id == hit.assignee.id %}selected{% endif %}>

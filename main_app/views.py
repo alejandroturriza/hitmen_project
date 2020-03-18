@@ -6,13 +6,17 @@ from django.db.models import Q
 from .forms import HitForm, HitmenForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 def redirect_to_hits(request):
     return redirect('/hits/')
 
 
-class Hits(views.View):
+class Hits(PermissionRequiredMixin, views.View):
+    permission_required = 'main_app.view_hit'
+
     def get(self, request):
         hits = []
         if not request.user.is_staff and not request.user.is_superuser and request.user.hitman_user:
@@ -25,7 +29,9 @@ class Hits(views.View):
         return render(request, 'hits.html', context={'hits': hits})
 
 
-class HitDetail(views.View):
+class HitDetail(PermissionRequiredMixin, views.View):
+    permission_required = 'main_app.change_hit'
+
     def get(self, request, id):
         hit = get_object_or_404(Hit, id=id)
         form = HitForm(instance=hit)
@@ -59,6 +65,7 @@ class HitDetail(views.View):
         return redirect('hit_detail_url', id=id)
 
 
+@permission_required('main_app.view_bulk_hit')
 def add_hit(request):
     if request.method == 'POST':
         form = HitForm(request.POST)
@@ -101,12 +108,15 @@ def get_related_users(manager):
     return hitmen
 
 
+@permission_required('main_app.view_bulk_hit')
 def hitmen_list(request):
     hitmen = get_related_users(request.user)
     return render(request, 'hitmen.html', context={'hitmen': hitmen})
 
 
-class HitmenDetail(views.View):
+class HitmenDetail(PermissionRequiredMixin, views.View):
+    permission_required = 'main_app.view_bulk_hit'
+
     def get(self, request, id):
         hitman = Hitman.objects.get(id=id)
         form = HitmenForm(initial={
@@ -159,7 +169,9 @@ class HitmenDetail(views.View):
         return redirect('hitmen_detail_url', id=id)
 
 
-class HitsBulk(views.View):
+class HitsBulk(PermissionRequiredMixin, views.View):
+    permission_required = 'main_app.view_bulk_hit'
+
     def get(self, request):
         hits, managers = [], []
         if request.user.is_staff and not request.user.is_superuser:
