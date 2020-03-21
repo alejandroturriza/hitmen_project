@@ -18,7 +18,7 @@
                             <strong>Status:</strong>
                             <p class="card-text">{% if hitman.user.is_active %}Active{% else %}Inactive{% endif %}</p>
                             <strong>Manager:</strong>
-                            <p class="card-text">{{ hitman.manager }}</p>
+                            <p class="card-text">{{ hitman.manager|default:'Unassigned' }}</p>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-black stretched-link" href="{{ hitman.get_absolute_url }}">View
