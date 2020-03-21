@@ -37,7 +37,7 @@
                             </select>
                         </th>
                         <th scope="row">{{ hit.description }}</th>
-                        <th scope="row">{{ hit.status }}</th>
+                        <th scope="row">{{ hit.get_status_display|default:'Unassigned' }}</th>
                         <th scope="row">{{ hit.assigned_by }}</th>
                     </tr>
                 {% endfor %}
